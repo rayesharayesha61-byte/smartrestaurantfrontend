@@ -13,8 +13,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
-
-export default function StaffManagementScreen() {
+import { MaterialIcons } from "@expo/vector-icons"; 
+export default function StaffManagementScreen( {navigation}) {
 
   const [staff, setStaff] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -36,7 +36,7 @@ export default function StaffManagementScreen() {
     fetchStaff();
   };
 
-  // 🔍 Search + Filter
+  //  Search + Filter
   const filteredStaff = staff
     .filter(item =>
       item.full_name.toLowerCase().includes(search.toLowerCase()) ||
@@ -82,9 +82,12 @@ export default function StaffManagementScreen() {
 
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.menuIcon}>≡</Text>
+        <Text style={styles.menuIcon}></Text>
+      
         <Text style={styles.headerTitle}>Staff Management</Text>
-        <Text style={styles.closeIcon}>✕</Text>
+         <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.closeIcon}>✕</Text> 
+        </TouchableOpacity>
       </View>
 
       {/* Search Bar */}

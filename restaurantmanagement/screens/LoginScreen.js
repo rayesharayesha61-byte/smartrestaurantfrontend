@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons';
 
-export default function LoginScreen({ setUserRole }) {
+export default function LoginScreen({ setUser,navigation }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,9 +29,15 @@ export default function LoginScreen({ setUserRole }) {
         password
       });
 
+      // if (response.data.success) {
+      //   setUserRole(response.data.role);
       if (response.data.success) {
-        setUserRole(response.data.role);
-        
+  setUser({
+    role: response.data.role,
+    name: response.data.name
+  });
+
+
       } else {
         Alert.alert("Error", "Invalid Credentials");
       }

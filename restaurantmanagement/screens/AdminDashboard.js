@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import {
   View,
@@ -18,8 +20,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import MenuManagement from "./MenuManagement";
 import AddMenuItem from "./AddMenuItem";
-
-export default function ManagerDashboard({ token }) {
+import CreateTable from "./CreateTable";
+import StaffManagementScreen from "./StaffManagementScreen";
+import Footer from "./Footer";
+export default function AdminDashboard({ token ,navigation}) {
 
   const [menuVisible, setMenuVisible] = useState(false);
 const [currentScreen, setCurrentScreen] = useState("dashboard");
@@ -110,20 +114,31 @@ const [currentScreen, setCurrentScreen] = useState("dashboard");
 if (currentScreen === "addMenu") {
   return <AddMenuItem goBack={() => setCurrentScreen("dashboard")} />;
 }
+if (currentScreen === "createTable") {
+  return <CreateTable goBack={() => setCurrentScreen("dashboard")} />;
+}
+if (currentScreen === "staffmanagementscreen") {
+  return <StaffManagementScreen goBack={() => setCurrentScreen("dashboard")} />;
+}
+
   return (
    
     
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       
-
+   {/* <Header
+        user={user}
+        navigation={navigation}
+        setUser={setUser}
+      /> */}
       {/* HEADER */}
-      <View style={headerStyles.header}>
+      {/* <View style={headerStyles.header}>
         
         <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
           <MaterialCommunityIcons name="menu" size={28} color="#fff" />
         </TouchableOpacity>
         <Text style={headerStyles.headerTitle}>Admin Dashboard</Text>
-      </View>
+       </View>  */}
 
       {/* SIDE MENU */}
       {/* {menuVisible && (
@@ -161,6 +176,24 @@ if (currentScreen === "addMenu") {
       <Text style={headerStyles.menuItem}>Add Menu Item</Text>
     </TouchableOpacity>
 
+ <TouchableOpacity
+      onPress={() => {
+        setCurrentScreen("createTable");
+        setMenuVisible(false);
+      }}
+    >
+      <Text style={headerStyles.menuItem}>Create Table</Text>
+    </TouchableOpacity>
+
+     <TouchableOpacity
+      onPress={() => {
+        setCurrentScreen("staffmanagementscreen");
+        setMenuVisible(false);
+      }}
+    >
+      <Text style={headerStyles.menuItem}>Staff Management</Text>
+    </TouchableOpacity>
+   
   </View>
 )}
       <KeyboardAvoidingView
@@ -214,7 +247,7 @@ if (currentScreen === "addMenu") {
 
             <Text style={styles.label}>Role Selection</Text>
             <View style={styles.roleContainer}>
-              {["waiter", "chef", "cashier", "manager", "admin"].map((r) => (
+              {["waiter", "chef", "cashier", "manager"].map((r) => (
                 <TouchableOpacity key={r} style={[styles.roleButton, role === r && styles.roleActive]} onPress={() => setRole(r)}>
                   <Text style={[styles.roleText, role === r && { color: "#fff" }]}>{r}</Text>
                 </TouchableOpacity>
@@ -245,9 +278,12 @@ if (currentScreen === "addMenu") {
             <TouchableOpacity style={styles.button} onPress={createStaff}>
               <Text style={styles.buttonText}>Create Account</Text>
             </TouchableOpacity>
+          
           </View>
 
         </ScrollView>
+          <View style={styles.bottomNav}>
+             <Footer navigation={navigation} role="admin"/></View>
       </KeyboardAvoidingView>
 
     </SafeAreaView>
@@ -263,6 +299,20 @@ const styles = StyleSheet.create({
   imageContainer: { alignItems: "center", marginBottom: 20 },
   avatarWrapper: { position: "relative" },
   avatar: { width: 100, height: 100, borderRadius: 50 },
+ bottomNav: {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: 70,
+  backgroundColor: "#fff",
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
+  elevation: 10,
+  borderTopWidth: 1,
+  borderColor: "#eee",
+},
   avatarPlaceholder: {
     width: 100, height: 100, borderRadius: 50,
     backgroundColor: "#ffe5d9", justifyContent: "center", alignItems: "center"
@@ -304,7 +354,7 @@ const styles = StyleSheet.create({
   successText: { marginLeft: 8, color: "#2e7d32", fontWeight: "600" },
 });
 
-
+/*  HEADER STYLES */
 
 const headerStyles = StyleSheet.create({
   header: {

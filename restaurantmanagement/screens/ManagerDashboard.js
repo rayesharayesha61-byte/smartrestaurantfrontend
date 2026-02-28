@@ -17,12 +17,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import MenuManagement from "./MenuManagement";
-import AddMenuItem from "./AddMenuItem";
-import CreateTable from "./CreateTable";
-import StaffManagementScreen from "./StaffManagementScreen";
-export default function ManagerDashboard({ token }) {
-
+// import MenuManagement from "./MenuManagement";
+// import AddMenuItem from "./AddMenuItem";
+// import CreateTable from "./CreateTable";
+// import StaffManagementScreen from "./StaffManagementScreen";
+import Footer from "./Footer";
+import Header from "./Header";
+export default function ManagerDashboard({ token,navigation}) {
+  const [user, setUser] = useState({
+    role: "manager", // or get from login
+  
+  });
   const [menuVisible, setMenuVisible] = useState(false);
 const [currentScreen, setCurrentScreen] = useState("dashboard");
   const [fullName, setFullName] = useState("");
@@ -118,21 +123,26 @@ if (currentScreen === "createTable") {
 if (currentScreen === "staffmanagementscreen") {
   return <StaffManagementScreen goBack={() => setCurrentScreen("dashboard")} />;
 }
+
   return (
    
     
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       
-
+   {/* <Header
+        user={user}
+        navigation={navigation}
+        setUser={setUser}
+      /> */}
       {/* HEADER */}
-      <View style={headerStyles.header}>
+      {/* <View style={headerStyles.header}>
         
         <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
           <MaterialCommunityIcons name="menu" size={28} color="#fff" />
         </TouchableOpacity>
         <Text style={headerStyles.headerTitle}>Manager Dashboard</Text>
-      </View>
-
+       </View>  */}
+  {/* <Header user={user} navigation={navigation} setUser={setUser} /> */}
       {/* SIDE MENU */}
       {/* {menuVisible && (
         <View style={headerStyles.sideMenu}>
@@ -186,6 +196,7 @@ if (currentScreen === "staffmanagementscreen") {
     >
       <Text style={headerStyles.menuItem}>Staff Management</Text>
     </TouchableOpacity>
+   
   </View>
 )}
       <KeyboardAvoidingView
@@ -218,6 +229,7 @@ if (currentScreen === "staffmanagementscreen") {
                       <Text style={styles.avatarText}>
                         {fullName ? fullName.charAt(0).toUpperCase() : "JS"}
                       </Text>
+                      
                     </View>
                   )}
                   <View style={styles.cameraIcon}>
@@ -239,7 +251,7 @@ if (currentScreen === "staffmanagementscreen") {
 
             <Text style={styles.label}>Role Selection</Text>
             <View style={styles.roleContainer}>
-              {["waiter", "chef", "cashier", "manager", "admin"].map((r) => (
+              {["waiter", "chef", "cashier", "manager","admin"].map((r) => (
                 <TouchableOpacity key={r} style={[styles.roleButton, role === r && styles.roleActive]} onPress={() => setRole(r)}>
                   <Text style={[styles.roleText, role === r && { color: "#fff" }]}>{r}</Text>
                 </TouchableOpacity>
@@ -270,9 +282,12 @@ if (currentScreen === "staffmanagementscreen") {
             <TouchableOpacity style={styles.button} onPress={createStaff}>
               <Text style={styles.buttonText}>Create Account</Text>
             </TouchableOpacity>
+            
           </View>
 
         </ScrollView>
+        <View style={styles.bottomNav}>
+             <Footer navigation={navigation} role="manager"/></View>
       </KeyboardAvoidingView>
 
     </SafeAreaView>
@@ -326,6 +341,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#e8f5e9", padding: 10,
     borderRadius: 12, marginBottom: 15
   },
+bottomNav: {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: 70,
+  backgroundColor: "#fff",
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
+  elevation: 10,
+  borderTopWidth: 1,
+  borderColor: "#eee",
+},
   successText: { marginLeft: 8, color: "#2e7d32", fontWeight: "600" },
 });
 

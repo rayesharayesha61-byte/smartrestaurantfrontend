@@ -13,10 +13,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
+import { Picker } from "@react-native-picker/picker";
 import { MaterialIcons } from "@expo/vector-icons"; 
 import axios from "axios";
 
-export default function AddMenuItem({ goBack }) {
+export default function AddMenuItem({goBack,navigation}) {
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -52,9 +53,10 @@ export default function AddMenuItem({ goBack }) {
     formData.append("category", category);
     formData.append("price", price);
     formData.append("description", description);
-    formData.append("isVeg", isVeg);
-    formData.append("available", available);
-
+    // formData.append("isVeg", isVeg);
+    // formData.append("available", available);
+formData.append("isVeg", isVeg ? 1 : 0);
+formData.append("available", available ? 1 : 0);
     if (image) {
       formData.append("image", {
         uri: image.uri,
@@ -87,9 +89,13 @@ export default function AddMenuItem({ goBack }) {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+      > 
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
           <Text style={styles.heading}>Add Menu Item</Text>
+          <View style={styles.closeIcon}>
+           <TouchableOpacity onPress={() => navigation.goBack()}>
+  <MaterialIcons name="close" size={26} color="#333" />
+</TouchableOpacity></View>
 
           {/* Image Upload */}
           <Text style={styles.label}>Menu Item Photo</Text>
@@ -114,14 +120,25 @@ export default function AddMenuItem({ goBack }) {
           />
 
           {/* Category */}
-          <Text style={styles.label}>Category</Text>
+          {/* <Text style={styles.label}>Category</Text>
           <TextInput
             style={styles.input}
             value={category}
             onChangeText={setCategory}
             placeholder="Ex: Main Course"
-          />
-
+          /> */}
+<Text style={styles.label}>Category</Text>
+<View style={styles.pickerBox}>
+  <Picker
+    selectedValue={category}
+    onValueChange={(itemValue) => setCategory(itemValue)}
+  >
+    <Picker.Item label="Select Category" value="" />
+    <Picker.Item label="starters" value="1" />
+    <Picker.Item label="Main Course" value="2" />
+     <Picker.Item label="Beverages" value="3" />
+  </Picker>
+</View>
           {/* Price */}
           <Text style={styles.label}>Price</Text>
           <TextInput
@@ -186,11 +203,12 @@ const styles = StyleSheet.create({
   label: { marginTop: 15, fontWeight: "600" },
 
   imageBox: {
-    height: 150,
+    height: 230,
+   
     borderWidth: 2,
-    borderColor: "#ff6b35", // Orange outline
+    borderColor: "#ff6b35", 
     borderStyle: "dashed",
-    borderRadius: 15,
+    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 8,
@@ -208,7 +226,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 16
   },
-
+ closeIcon: {
+  position:"absolute",
+  right:20,
+  top:15,
+  },
   row: { flexDirection: "row", justifyContent: "space-between", marginTop: 10 },
   foodButton: {
     flex: 1,
@@ -235,4 +257,11 @@ const styles = StyleSheet.create({
   },
   saveText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
   cancel: { textAlign: "center", marginTop: 15, color: "#777", fontSize: 15 },
+  pickerBox: {
+  backgroundColor: "#fff",
+  borderRadius: 12,
+  borderWidth: 1,
+  borderColor: "#ddd",
+  marginTop: 5,
+}
 });

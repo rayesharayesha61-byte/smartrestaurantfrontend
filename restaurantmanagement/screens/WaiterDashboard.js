@@ -1,5 +1,6 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
+
 import {
   View,
   Text,
@@ -11,19 +12,28 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Footer from "./Footer";
 
 const { width } = Dimensions.get("window");
 
-export default function WaiterDashboard({ navigation}) {
+export default function WaiterDashboard({ navigation }) {
   const [tables, setTables] = useState([]);
   const [filter, setFilter] = useState("All");
   const [selectedTable, setSelectedTable] = useState(null);
-
+const [user, setUser] = useState({
+    role: "waiter", 
+   
+  });
   const API_URL = "http://192.168.29.155:5000/api";
 
-  useEffect(() => {
-    fetchTables();
-  }, []);
+  
+  useFocusEffect(
+    useCallback(() => {
+      fetchTables();
+    }, [])
+  );
 
   const fetchTables = async () => {
     try {
@@ -32,7 +42,7 @@ export default function WaiterDashboard({ navigation}) {
         setTables(response.data.data);
       }
     } catch (error) {
-      console.log(error);
+      console.log("TABLE FETCH ERROR:", error.message);
     }
   };
 
@@ -73,16 +83,30 @@ export default function WaiterDashboard({ navigation}) {
       >
         {item.status.toUpperCase()}
       </Text>
-    </TouchableOpacity>
-  );
- 
 
   
+      {item.status === "Occupied" && item.occupied_at && (
+        <Text style={{ marginTop: 5, fontSize: 12, color: "#999" }}>
+          Since: {new Date(item.occupied_at).toLocaleTimeString()}
+        </Text>
+      )}
+    </TouchableOpacity>
+  );
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    
+ <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+        {/* <Header user={user} navigation={navigation} setUser={setUser} /> */}
       <View style={styles.container}>
-      
-  
+
+        {/* Welcome */}
+         <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 ,color:"#ff6b3d"}}>
+          LOGGED IN AS 
+        </Text>
+        <Text style={{ fontSize: 16, fontWeight: "bold", marginBottom: 10 }}>
+         {user?.name}
+        </Text>
+
         {/* Stats */}
         <View style={styles.statsContainer}>
           <View style={styles.statCardActive}>
@@ -100,7 +124,7 @@ export default function WaiterDashboard({ navigation}) {
           </View>
         </View>
 
-        {/* Filter Buttons */}
+        {/* Filters */}
         <View style={styles.filterRow}>
           {["All", "Available", "Occupied", "Reserved"].map((item) => (
             <TouchableOpacity
@@ -123,7 +147,7 @@ export default function WaiterDashboard({ navigation}) {
           ))}
         </View>
 
-        {/* Tables Grid */}
+        {/* Table Grid */}
         <FlatList
           data={filteredTables}
           keyExtractor={(item) => item.id.toString()}
@@ -134,7 +158,7 @@ export default function WaiterDashboard({ navigation}) {
           contentContainerStyle={{ paddingBottom: 120 }}
         />
 
-        {/* Floating New Order Button */}
+        {/* Floating Button */}
         {selectedTable && (
           <TouchableOpacity
             style={styles.newOrderBtn}
@@ -148,9 +172,97 @@ export default function WaiterDashboard({ navigation}) {
             <Ionicons name="add" size={22} color="#fff" />
             <Text style={styles.newOrderText}>New Order</Text>
           </TouchableOpacity>
-        )}
+        )} 
+   {/* <View style={styles.bottomNav}>
+  <TouchableOpacity style={styles.navItem}>
+    <Ionicons name="home" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>HOME</Text>
+  </TouchableOpacity>
 
-      </View>
+  <TouchableOpacity style={styles.navItem}>
+    <MaterialCommunityIcons name="clipboard-list" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>ORDERS</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.navItem}>
+    <MaterialCommunityIcons name="seat" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>RESERVATIONS</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity style={styles.navItem}>
+    <Ionicons name="settings" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>MORE</Text>
+  </TouchableOpacity>
+</View> */}
+{/* <View style={styles.bottomNav}>
+  <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("Home")}
+  >
+    <Ionicons name="home" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>HOME</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("Orders")}
+  >
+    <MaterialCommunityIcons name="clipboard-list" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>ORDERS</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("Reservations")}
+  >
+    <MaterialCommunityIcons name="seat-outline" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>RESERVATIONS</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("More")}
+  >
+    <Ionicons name="settings-outline" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>MORE</Text>
+  </TouchableOpacity>
+</View> */}
+<View style={styles.bottomNav}>
+  {/* <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("WaiterDashboard")}
+  >
+    <Ionicons name="home" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>HOME</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("TablesListScreen")}
+  >
+    <MaterialCommunityIcons name="clipboard-list" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>ORDERS</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("Reservations")}
+  >
+    <MaterialCommunityIcons name="seat-outline" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>RESERVATIONS</Text>
+  </TouchableOpacity> */}
+
+  {/* <TouchableOpacity
+    style={styles.navItem}
+    onPress={() => navigation.navigate("MenuManagement")}
+  >
+    <Ionicons name="settings-outline" size={18} color="#ff6b3d" />
+    <Text style={styles.navText}>MORE</Text>
+  </TouchableOpacity> */}
+        <Footer navigation={navigation} role="waiter"/>
+</View>
+     </View>
+   
     </SafeAreaView>
   );
 }
@@ -246,7 +358,7 @@ const styles = StyleSheet.create({
 
   newOrderBtn: {
     position: "absolute",
-    bottom: 20,
+    bottom: 75,
     right: 20,
     flexDirection: "row",
     alignItems: "center",
@@ -263,4 +375,26 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     fontSize: 16,
   },
+   bottomNav: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    backgroundColor: "#fff",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    elevation: 10, // Android shadow
+  },
+  navItem:{
+    alignItems:"center",
+  },
+  navText:{
+    fontSize:11,
+    marginTop:4,
+    color:"#ff6b3d",
+  }
 });
+
+ 

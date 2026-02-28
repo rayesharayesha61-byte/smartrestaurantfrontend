@@ -13,8 +13,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import axios from "axios";
-
-export default function CreateTable({ token }) {
+import { MaterialIcons } from "@expo/vector-icons"; 
+export default function CreateTable({ navigation }) {
   const [tableNumber, setTableNumber] = useState("T12");
   const [capacity, setCapacity] = useState(4);
   const [tableType, setTableType] = useState("Indoor");
@@ -73,7 +73,10 @@ export default function CreateTable({ token }) {
         <ScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
-        >
+        ><View style={styles.closeIcon}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+  <MaterialIcons name="close" size={26} color="#333" />
+</TouchableOpacity></View>
           <Text style={styles.header}>Add New Table</Text>
 
           {success && (
@@ -210,6 +213,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
   },
+ 
+   closeIcon: {
+  position:"absolute",
+  right:20,
+  top:15,
+  },
+
   successText: { marginLeft: 10, color: "#2ecc71", fontWeight: "600" },
   card: { backgroundColor: "#fff", padding: 15, borderRadius: 15, elevation: 3 },
   sectionTitle: { fontSize: 16, fontWeight: "bold", marginBottom: 10 },
