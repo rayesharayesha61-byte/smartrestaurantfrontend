@@ -163,7 +163,7 @@ const [user, setUser] = useState({
           <TouchableOpacity
             style={styles.newOrderBtn}
             onPress={() =>
-              navigation.navigate("MenuManagement", {
+              navigation.navigate("Waitermenu", {
                 tableId: selectedTable.id,
                 tableNumber: selectedTable.table_number,
               })

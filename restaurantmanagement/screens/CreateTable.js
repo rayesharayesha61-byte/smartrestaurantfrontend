@@ -41,7 +41,7 @@ export default function CreateTable({ navigation }) {
           status,
           notes,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        // { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data.success) {

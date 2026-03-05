@@ -12,8 +12,8 @@ import ManagerDashboard from "./screens/ManagerDashboard";
 import ChefDashboard from "./screens/ChefDashboard";
 import WaiterDashboard from "./screens/WaiterDashboard";
 import CashierDashboard from "./screens/CashierDashboard";
-
-import TablesListScreen from "./screens/TablesListScreen";
+import BillDetailsScreen from "./screens/BillDetailsScreen";
+import OrderDetails from "./screens/OrderDetails";
 import MenuManagement from "./screens/MenuManagement";
 import Waitermenu from "./screens/Waitermenu";
 import Reservations from "./screens/Reservations";
@@ -21,6 +21,10 @@ import CreateReservation from "./screens/CreateReservation";
 import AddMenuItem from "./screens/AddMenuItem";
 import CreateTable from "./screens/CreateTable";
 import StaffManagementScreen from "./screens/StaffManagementScreen";
+import PaymentSuccessScreen from "./screens/PaymentSuccessScreen";
+import OverviewScreen from "./screens/OverviewScreen";
+import HistoryScreen from "./screens/HistoryScreen";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -55,14 +59,15 @@ export default function App() {
               </Stack.Screen>
 
               {/* ADMIN / MANAGER SCREENS */}
+              
               <Stack.Screen name="MenuManagement" component={MenuManagement}  />
               <Stack.Screen name="AddMenuItem" component={AddMenuItem} />
               <Stack.Screen name="CreateTable" component={CreateTable} />
               <Stack.Screen name="StaffManagementScreen" component={StaffManagementScreen} />
 
               {/* WAITER SCREENS */}
-              <Stack.Screen name="TablesListScreen" component={TablesListScreen} />
-           
+              <Stack.Screen name="OrderDetails" component={OrderDetails} />
+             <Stack.Screen name="Waitermenu" component={Waitermenu} />
               <Stack.Screen name="Reservations" component={Reservations} />
               <Stack.Screen name="CreateReservation" component={CreateReservation} />
 
@@ -70,7 +75,12 @@ export default function App() {
               <Stack.Screen name="Chef" component={ChefDashboard} />
 
               {/* CASHIER */}
-              <Stack.Screen name="Cashier" component={CashierDashboard} />
+              <Stack.Screen name="CashierDashboard" component={CashierDashboard} />
+            
+              <Stack.Screen name="PaymentSuccess" component={PaymentSuccessScreen}/>
+              <Stack.Screen name="OverviewScreen"component={OverviewScreen}/>
+              <Stack.Screen name="BillDetails"component={BillDetailsScreen}/>
+                       <Stack.Screen name="HistoryScreen"component={HistoryScreen}/>
             </>
           )}
         </Stack.Navigator>

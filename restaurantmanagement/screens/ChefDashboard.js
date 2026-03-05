@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import Footer from "./Footer";
 // import Header from "./Header";
-export default function ChefDashboard(navigation) {
+export default function ChefDashboard( {navigation} ) {
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState("Pending");
  const [user, setUser] = useState({
@@ -23,40 +23,72 @@ export default function ChefDashboard(navigation) {
     fetchOrders();
   }, []);
 
-  const fetchOrders = async () => {
-    try {
-      const response = await axios.get(
-        "http://192.168.29.155:5000/api/orders"
-      );
+  // const fetchOrders = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://192.168.29.155:5000/api/orders"
+  //     );
 
      
-      const grouped = response.data.reduce((acc, item) => {
-        const key = item.table_number + "_" + item.status;
+  //     const grouped = response.data.reduce((acc, item) => {
+  //       const key = item.table_number + "_" + item.status;
 
-        if (!acc[key]) {
-          acc[key] = {
-            table_number: item.table_number,
-            status: item.status,
-            created_at: item.created_at,
-            items: [],
-          };
-        }
+  //       if (!acc[key]) {
+  //         acc[key] = {
+  //           table_number: item.table_number,
+  //           status: item.status,
+  //           created_at: item.created_at,
+  //           items: [],
+  //         };
+  //       }
 
-        acc[key].items.push({
-          id: item.id,
-          menu_name: item.menu_name,
-          quantity: item.quantity,
-        });
+  //       // acc[key].items.push({
+  //       //   id: item.id,
+  //       //   menu_name: item.menu_name,
+  //       //   quantity: item.quantity,
+  //       // });
 
-        return acc;
-      }, {});
+  //       return acc;
+  //     }, {});
 
-      setOrders(Object.values(grouped));
-    } catch (error) {
-      Alert.alert("Error", "Failed to fetch orders");
-    }
-  };
+  //     setOrders(Object.values(grouped));
+  //   } catch (error) {
+  //     Alert.alert("Error", "Failed to fetch orders");
+  //   }
+  // };
+const fetchOrders = async () => {
+  try {
+    const response = await axios.get(
+      "http://192.168.29.155:5000/api/orders"
+    );
 
+    const grouped = response.data.reduce((acc, item) => {
+      const key = item.table_number + "_" + item.status;
+
+      if (!acc[key]) {
+        acc[key] = {
+          table_number: item.table_number,
+          status: item.status,
+          created_at: item.created_at,
+          items: [],
+        };
+      }
+
+      acc[key].items.push({
+        id: item.id,
+        menu_name: item.menu_name,
+        quantity: item.quantity,
+        price: item.price || 0,
+      });
+
+      return acc;
+    }, {});
+
+    setOrders(Object.values(grouped));
+  } catch (error) {
+    Alert.alert("Error", "Failed to fetch orders");
+  }
+};
   const updateStatus = async (tableNumber, status) => {
     try {
       const tableOrders = orders.find(
@@ -87,65 +119,126 @@ export default function ChefDashboard(navigation) {
   const cookingCount = orders.filter(o => o.status === "Cooking").length;
   const readyCount = orders.filter(o => o.status === "Ready").length;
 
-  const renderItem = ({ item }) => (
-    <View style={styles.card}>
-      <View style={styles.cardHeader}>
-        <Text style={styles.orderTitle}>
-          Table {item.table_number}
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.card}>
+  //     <View style={styles.cardHeader}>
+  //       <Text style={styles.orderTitle}>
+  //         Table {item.table_number}
+  //       </Text>
+
+  //       <View style={{ alignItems: "flex-end" }}>
+  //         <Text style={styles.statusText}>
+  //           {item.status}
+  //         </Text>
+  //         {item.created_at && (
+  //           <Text style={styles.timeText}>
+  //             {new Date(item.created_at).toLocaleTimeString()}
+  //           </Text>
+  //         )}
+  //       </View>
+  //     </View>
+
+  //     {/* MULTIPLE ITEMS */}
+  //     {item.items.map((food, index) => (
+  //       <View key={index} style={styles.itemRow}>
+  //         <Text style={styles.qty}>
+  //           {food.quantity}x
+  //         </Text>
+  //         <Text style={styles.itemName}>
+  //           {food.menu_name}
+  //         </Text>
+  //       </View>
+  //     ))}
+
+  //     {item.status === "Pending" && (
+  //       <TouchableOpacity
+  //         style={styles.acceptBtn}
+  //         onPress={() =>
+  //           updateStatus(item.table_number, "Cooking")
+  //         }
+  //       >
+  //         <Text style={styles.btnText}>
+  //           Accept → Cooking
+  //         </Text>
+  //       </TouchableOpacity>
+  //     )}
+
+  //     {item.status === "Cooking" && (
+  //       <TouchableOpacity
+  //         style={styles.readyBtn}
+  //         onPress={() =>
+  //           updateStatus(item.table_number, "Ready")
+  //         }
+  //       >
+  //         <Text style={styles.btnText}>
+  //           Mark as Ready
+  //         </Text>
+  //       </TouchableOpacity>
+  //     )}
+  //   </View>
+  // );
+const renderItem = ({ item }) => (
+  <TouchableOpacity
+    style={styles.card}
+    onPress={() =>
+      navigation.navigate("OrderDetails", { order: item })
+    }
+  >
+    <View style={styles.cardHeader}>
+      <Text style={styles.orderTitle}>
+        Table {item.table_number}
+      </Text>
+
+      <View style={{ alignItems: "flex-end" }}>
+        <Text style={styles.statusText}>
+          {item.status}
         </Text>
-
-        <View style={{ alignItems: "flex-end" }}>
-          <Text style={styles.statusText}>
-            {item.status}
+        {item.created_at && (
+          <Text style={styles.timeText}>
+            {new Date(item.created_at).toLocaleTimeString()}
           </Text>
-          {item.created_at && (
-            <Text style={styles.timeText}>
-              {new Date(item.created_at).toLocaleTimeString()}
-            </Text>
-          )}
-        </View>
+        )}
       </View>
-
-      {/* MULTIPLE ITEMS */}
-      {item.items.map((food, index) => (
-        <View key={index} style={styles.itemRow}>
-          <Text style={styles.qty}>
-            {food.quantity}x
-          </Text>
-          <Text style={styles.itemName}>
-            {food.menu_name}
-          </Text>
-        </View>
-      ))}
-
-      {item.status === "Pending" && (
-        <TouchableOpacity
-          style={styles.acceptBtn}
-          onPress={() =>
-            updateStatus(item.table_number, "Cooking")
-          }
-        >
-          <Text style={styles.btnText}>
-            Accept → Cooking
-          </Text>
-        </TouchableOpacity>
-      )}
-
-      {item.status === "Cooking" && (
-        <TouchableOpacity
-          style={styles.readyBtn}
-          onPress={() =>
-            updateStatus(item.table_number, "Ready")
-          }
-        >
-          <Text style={styles.btnText}>
-            Mark as Ready
-          </Text>
-        </TouchableOpacity>
-      )}
     </View>
-  );
 
+    {item.items.map((food, index) => (
+      <View key={index} style={styles.itemRow}>
+        <Text style={styles.qty}>
+          {food.quantity}x
+        </Text>
+        <Text style={styles.itemName}>
+          {food.menu_name}
+        </Text>
+      </View>
+    ))}
+
+    {item.status === "Pending" && (
+      <TouchableOpacity
+        style={styles.acceptBtn}
+        onPress={() =>
+          updateStatus(item.table_number, "Cooking")
+        }
+      >
+        <Text style={styles.btnText}>
+          Accept → Cooking
+        </Text>
+      </TouchableOpacity>
+    )}
+
+    {item.status === "Cooking" && (
+      <TouchableOpacity
+        style={styles.readyBtn}
+        onPress={() =>
+          updateStatus(item.table_number, "Ready")
+        }
+      >
+        <Text style={styles.btnText}>
+          Mark as Ready
+        </Text>
+      </TouchableOpacity>
+    )}
+  </TouchableOpacity>
+);
   return (
   <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       {/* <Text style={styles.header}>
@@ -179,12 +272,18 @@ export default function ChefDashboard(navigation) {
         ))}
       </View>
 
-      <FlatList
+      {/* <FlatList
         data={filteredOrders}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
-      />
+      /> */}
+      <FlatList
+  data={filteredOrders}
+  keyExtractor={(item, index) => index.toString()}
+  renderItem={renderItem}
+  contentContainerStyle={{ paddingBottom: 100 }}
+/>
       <View style={styles.bottomNav}>
             <Footer navigation={navigation} role="chef"/></View>
     </SafeAreaView>

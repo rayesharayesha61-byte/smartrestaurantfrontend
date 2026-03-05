@@ -15,15 +15,26 @@
     "ios": {
       "supportsTablet": true
     },
+    "plugins": [
+      "./plugins/withNetworkSecurity",
+      "./plugins/withNetworkSecurityXml"
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.vasima.restaurantmanagement"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0da08ef0-28f8-459a-b792-8399fe2f2b2e"
+      }
+    },
+    "owner": "vasima"
   }
 }

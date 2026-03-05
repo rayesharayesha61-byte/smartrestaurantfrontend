@@ -173,33 +173,8 @@ return (
   </View>
 );
 };
-// const styles = StyleSheet.create({
-//   container: { flex: 1, padding: 20 },
-//   title: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
-//   input: {
-//     borderWidth: 1,
-//     borderColor: "#ddd",
-//     padding: 10,
-//     borderRadius: 8,
-//     marginTop: 10,
-//   },
-//   tableBox: {
-//     padding: 15,
-//     borderWidth: 1,
-//     borderColor: "#ccc",
-//     margin: 5,
-//     borderRadius: 10,
-//     width: "45%",
-//     alignItems: "center",
-//   },
-//   button: {
-//     marginTop: 20,
-//     backgroundColor: "#ff6b3d",
-//     padding: 15,
-//     borderRadius: 10,
-//     alignItems: "center",
-//   },
-// });
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

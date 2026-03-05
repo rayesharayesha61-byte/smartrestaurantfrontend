@@ -21,7 +21,7 @@ export default function Footer({ navigation, role }) {
           <NavItem
             icon="clipboard-list"
             text="ORDERS"
-            screen="TablesListScreen"
+            screen="OrderDetails"
             type="mc"
             navigation={navigation}
           />
@@ -41,21 +41,21 @@ export default function Footer({ navigation, role }) {
           <NavItem
             icon="clipboard-list"
             text="ORDERS"
-            screen="OrdersScreen"
+            screen="OrdersDetails"
             type="mc"
             navigation={navigation}
           />
           <NavItem
             icon="account-group"
             text="STAFF"
-            screen="StaffScreen"
+            screen="StaffManagementScreen"
             type="mc"
             navigation={navigation}
           />
           <NavItem
             icon="food"
             text="MENU"
-            screen="MenuScreen"
+            screen="MenuManagement"
             type="mc"
             navigation={navigation}
           />
@@ -72,32 +72,32 @@ export default function Footer({ navigation, role }) {
         <>
           <NavItem
             icon="clipboard-list"
-            text="ORDERS"
-            screen="OrdersScreen"
+            text="OVERVIEW"
+            screen="OverviewScreen"
             type="mc"
             navigation={navigation}
           />
           <NavItem
             icon="account-group"
             text="STAFF"
-            screen="StaffScreen"
+            screen="StaffManagementScreen"
             type="mc"
             navigation={navigation}
           />
           <NavItem
             icon="food"
             text="MENU"
-            screen="MenuScreen"
+            screen="MenuManagement"
             type="mc"
             navigation={navigation}
           />
-          <NavItem
+          {/* <NavItem
             icon="cog"
             text="SETTINGS"
             screen="SettingsScreen"
             type="mc"
             navigation={navigation}
-          />
+          /> */}
         </>
       )}
       {/* CHEF MENU */}
@@ -133,7 +133,32 @@ export default function Footer({ navigation, role }) {
           />
         </>
       )}
-
+ {role === "cashier" && (
+        <>
+          <NavItem
+            icon="clipboard-list"
+            text="HOME"
+            screen="ChefOrders"
+            type="mc"
+            navigation={navigation}
+          />
+          <NavItem
+            icon="warehouse"
+            text="ORDERS"
+            screen="InventoryScreen"
+            type="mc"
+            navigation={navigation}
+          />
+          <NavItem
+            icon="history"
+            text="BILLING"
+            screen="HistoryScreen"
+            type="mc"
+            navigation={navigation}
+          />
+        
+        </>
+      )}
     </View>
   );
 }
@@ -142,7 +167,7 @@ function NavItem({ icon, text, screen, type, navigation }) {
   return (
     <TouchableOpacity
       style={styles.navItem}
-    //   onPress={() => navigation.navigate(screen)}
+      onPress={() => navigation.navigate(screen)}
     >
       {type === "mc" ? (
         <MaterialCommunityIcons name={icon} size={20} color="#ff6b3d" />
