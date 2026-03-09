@@ -203,7 +203,7 @@ export default function CreateTable({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
+  container: { padding: 20,paddingBottom:150 },
   header: { fontSize: 22, fontWeight: "bold", marginBottom: 15, textAlign: "center" },
   successBox: {
     flexDirection: "row",

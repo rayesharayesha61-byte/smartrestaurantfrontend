@@ -259,7 +259,7 @@ const [user, setUser] = useState({
     <Ionicons name="settings-outline" size={18} color="#ff6b3d" />
     <Text style={styles.navText}>MORE</Text>
   </TouchableOpacity> */}
-        <Footer navigation={navigation} role="waiter"/>
+        {/* <Footer navigation={navigation} role="waiter"/> */}
 </View>
      </View>
    

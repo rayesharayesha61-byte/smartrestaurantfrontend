@@ -282,8 +282,8 @@ if (currentScreen === "staffmanagementscreen") {
           </View>
 
         </ScrollView>
-          <View style={styles.bottomNav}>
-             <Footer navigation={navigation} role="admin"/></View>
+          {/* <View style={styles.bottomNav}>
+             <Footer navigation={navigation} role="admin"/></View> */}
       </KeyboardAvoidingView>
 
     </SafeAreaView>

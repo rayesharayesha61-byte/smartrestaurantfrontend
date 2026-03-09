@@ -110,15 +110,15 @@ const fetchOrders = async () => {
     }
   };
 
-  const filteredOrders = orders.filter(
-    (item) => item.status === activeTab
-  );
+ 
 
   // COUNT
   const pendingCount = orders.filter(o => o.status === "Pending").length;
   const cookingCount = orders.filter(o => o.status === "Cooking").length;
   const readyCount = orders.filter(o => o.status === "Ready").length;
-
+ const filteredOrders = orders.filter(
+    (item) => item.status === activeTab
+  );
   // const renderItem = ({ item }) => (
   //   <View style={styles.card}>
   //     <View style={styles.cardHeader}>
@@ -284,8 +284,8 @@ const renderItem = ({ item }) => (
   renderItem={renderItem}
   contentContainerStyle={{ paddingBottom: 100 }}
 />
-      <View style={styles.bottomNav}>
-            <Footer navigation={navigation} role="chef"/></View>
+      // <View style={styles.bottomNav}>
+      //       <Footer navigation={navigation} role="chef"/></View>
     </SafeAreaView>
   );
 }

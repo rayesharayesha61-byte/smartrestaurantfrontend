@@ -143,6 +143,7 @@ export default function MenuManagement({ navigation }) {
         sections={sections}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
+        contentContainerStyle={{paddingBottom:140}}
         renderSectionHeader={({ section: { title } }) => (
           <TouchableOpacity
             style={styles.sectionHeader}

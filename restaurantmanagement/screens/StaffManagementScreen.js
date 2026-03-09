@@ -105,6 +105,8 @@ export default function StaffManagementScreen( {navigation}) {
         showsVerticalScrollIndicator={false}
         data={[{ type: "active" }, { type: "inactive" }]}
         keyExtractor={(item) => item.type}
+          contentContainerStyle={{paddingBottom:140}}
+
         renderItem={({ item }) => {
           if (item.type === "active") {
             return (
@@ -245,8 +247,9 @@ const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingVertical: 15,
-    backgroundColor: "#FFF7F4"
+    paddingVertical: 20,
+    backgroundColor: "#FFF7F4",
+    paddingBottom:80
   },
   filterBtn: {
     paddingVertical: 10,

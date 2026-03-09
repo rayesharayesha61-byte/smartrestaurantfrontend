@@ -40,7 +40,7 @@ const handleGenerateBill = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(order),
+      body: JSON.stringify({id:order.id}),
     });
 
     navigation.navigate("Chef"); 
@@ -51,7 +51,7 @@ const handleGenerateBill = async () => {
 };
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} >
         
         {/* HEADER */}
         <View style={styles.header}>
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   },
 billBtn: {
   position: "absolute",
-  bottom: 20,
+  bottom: 70,
   left: 20,
   right: 20,
   backgroundColor: "#ff6b35",

@@ -80,7 +80,7 @@ formData.append("available", available ? 1 : 0);
       }
     } catch (err) {
       console.log(err);
-      alert("Network Error");
+      // alert("Network Error");
     }
   };
 
@@ -90,7 +90,7 @@ formData.append("available", available ? 1 : 0);
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       > 
-        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled">
           <Text style={styles.heading}>Add Menu Item</Text>
           <View style={styles.closeIcon}>
            <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -198,7 +198,7 @@ formData.append("available", available ? 1 : 0);
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, padding: 20, backgroundColor: "#f8f9fb" },
+  container: { flexGrow: 1, padding: 20, backgroundColor: "#f8f9fb",paddingBottom:150 },
   heading: { fontSize: 22, fontWeight: "bold", marginBottom: 15 },
   label: { marginTop: 15, fontWeight: "600" },
 

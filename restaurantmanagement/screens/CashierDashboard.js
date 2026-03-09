@@ -98,7 +98,7 @@ const payBill = (id) => {
             const total = subtotal + subtotal * 0.1;
 
             return (
-              <View key={index} style={styles.card}>
+              <View key={order.id} style={styles.card}>
                 {/* TOP ROW */}
                 <View style={styles.topRow}>
                   <View style={styles.leftRow}>
@@ -165,8 +165,8 @@ const payBill = (id) => {
                 
         
       </ScrollView>
-      <View style={styles.bottomNav}>
-                     <Footer navigation={navigation} role="cashier"/></View>
+      {/* <View style={styles.bottomNav}>
+                     <Footer navigation={navigation} role="cashier"/></View> */}
     </SafeAreaView>
   );
 }

@@ -67,7 +67,7 @@ export default function LoginScreen({ setUser,navigation }) {
 
         <Text style={styles.welcome}>Welcome back</Text>
 
-        <Text style={styles.label}>Email or Mobile Number</Text>
+        <Text style={styles.label}>Email </Text>
         <View style={styles.inputBox}>
           <Feather name="user" size={18} color="#999" />
           <TextInput
@@ -99,10 +99,12 @@ export default function LoginScreen({ setUser,navigation }) {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={styles.forgot}>Forgot password?</Text>
-        </TouchableOpacity>
-
+        </TouchableOpacity> */}
+<TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordScreen")}>
+  <Text style={styles.forgot}>Forgot password?</Text>
+</TouchableOpacity>
         <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>

@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
 
   floatingBtn: {
     position: "absolute",
-    bottom: 30,
+    bottom: 70,
     right: 20,
     backgroundColor: "#ff6b3d",
     width: 60,
