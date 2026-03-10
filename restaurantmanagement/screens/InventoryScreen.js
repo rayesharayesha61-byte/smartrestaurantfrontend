@@ -55,19 +55,7 @@ Alert.alert("Error", "Failed to add item");
 }
 };
 
-// const updateStock = async (id, qty) => {
-// try {
 
-// await axios.put(`http://192.168.29.155:5000/api/inventory/${id}`, {
-// quantity: qty + 1
-// });
-
-// fetchInventory();
-
-// } catch {
-// Alert.alert("Error updating stock");
-// }
-// };
 const updateStock = async (id, qty) => {
 
 try{

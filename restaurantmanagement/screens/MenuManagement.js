@@ -23,6 +23,10 @@ export default function MenuManagement({ navigation }) {
     1: "Starters",
     2: "Main Course",
     3: "Beverages",
+    4:"breakfast",
+    5:"lunch",
+    6:"dinner"
+  
   };
 
   const [expandedSections, setExpandedSections] = useState({
@@ -99,7 +103,7 @@ export default function MenuManagement({ navigation }) {
     </View>
   );
 
-  // Filtered Sections
+  // // Filtered Sections
   const sections = Object.entries(categoryMap).map(([key, name]) => {
     const filteredItems = menuItems.filter(
       (i) =>
@@ -112,6 +116,8 @@ export default function MenuManagement({ navigation }) {
       data: expandedSections[name] ? filteredItems : [],
     };
   });
+const mealTypes = ["Breakfast", "Lunch", "Dinner"];
+
 
   return (
     <SafeAreaView style={styles.safe}>
@@ -158,6 +164,7 @@ export default function MenuManagement({ navigation }) {
                       (i) =>
                         categoryMap[i.category] === title
                     ).length
+                    
                   }{" "}
                   ITEMS
                 </Text>

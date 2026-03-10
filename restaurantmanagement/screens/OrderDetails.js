@@ -170,31 +170,17 @@ const handleGenerateBill = async () => {
             </Text>
           </View>
         </View>
-      </ScrollView>
-
-      {/* MARK AS READY BUTTON */}
-       {/* {(order.status === "Cooking" || order.status === "Ready") && (
-    <TouchableOpacity
-      style={styles.readyBtn}
-      onPress={handleMarkAsReady}
-    >
-      <MaterialIcons
-        name="check-circle"
-        size={20}
-        color="#fff"
-      />
-      <Text style={styles.readyText}>
-        Mark as Ready
-      </Text>
-    </TouchableOpacity>
-  )} */}
-
-  <TouchableOpacity
+          <TouchableOpacity
   style={styles.billBtn}
   onPress={handleGenerateBill}
 >
   <Text style={styles.billText}>Generate Bill</Text>
 </TouchableOpacity>
+      </ScrollView>
+
+    
+
+
       
     </SafeAreaView>
   );
@@ -215,7 +201,7 @@ const styles = StyleSheet.create({
   },
 billBtn: {
   position: "absolute",
-  bottom: 70,
+  bottom: 60,
   left: 20,
   right: 20,
   backgroundColor: "#ff6b35",

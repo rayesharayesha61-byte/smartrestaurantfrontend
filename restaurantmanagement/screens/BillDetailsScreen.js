@@ -14,8 +14,14 @@ import { Ionicons } from "@expo/vector-icons";
 export default function BillDetailsScreen({ route,navigation }) {
   const { order } = route.params;
 
-  const items = JSON.parse(order.items || "[]");
-
+ 
+const items = [
+  {
+    name: order.menu_name,
+    quantity: order.quantity,
+    price: order.price,
+  },
+];
   const [discountPercent, setDiscountPercent] = useState(0);
   const [tip, setTip] = useState(0);
 
@@ -52,25 +58,7 @@ export default function BillDetailsScreen({ route,navigation }) {
         {/* ITEMS */}
         <View style={styles.card}>
           {items.map((item, index) => (
-//             <View key={index} style={styles.itemRow}>
-//               <View>
-//                 {/* <Text style={styles.itemName}>
-//                   {item.name}
-//                 </Text> */}
-//                 <Text style={styles.itemName}>
-//   {item.name || item.menu_name || "Item"}
-// </Text>
-//                 <Text style={styles.qty}>
-//                   Qty: {item.quantity}
-//                 </Text>
-//               </View>
 
-//               <Text style={styles.price}>
-//                 ₹{(
-//                   item.price * item.quantity
-//                 ).toFixed(2)}
-//               </Text>
-//             </View>
 <View key={index} style={styles.itemRow}>
   <View>
     <Text style={styles.itemName}>
@@ -198,27 +186,7 @@ export default function BillDetailsScreen({ route,navigation }) {
           </View>
         </View>
 
-        {/* BUTTON */}
-        {/* <TouchableOpacity style={styles.payBtn}>
-          <Ionicons
-            name="checkmark-circle"
-            size={20}
-            color="#fff"
-          />
-          <Text style={styles.payText}>
-            Generate Bill & Mark Paid
-          </Text>
-        </TouchableOpacity> */}
-        {/* <TouchableOpacity
-  style={styles.payBtn}
-  onPress={() => {
-    navigation.navigate("PaymentSuccess", { order });
-  }}
->
-  <Text style={styles.payText}>
-    Generate Bill & Mark Paid
-  </Text>
-</TouchableOpacity> */}
+      
 <TouchableOpacity
   style={styles.payBtn}
   onPress={async () => {
@@ -255,7 +223,8 @@ export default function BillDetailsScreen({ route,navigation }) {
   tip,
   total,
 });
-      } else {
+      } 
+      else {
         alert("Bill generation failed");
       }
     } catch (error) {
@@ -422,6 +391,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom:"60",
   },
 
   payText: {

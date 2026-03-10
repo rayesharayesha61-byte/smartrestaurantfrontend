@@ -54,62 +54,7 @@ export default function CreateReservation({ route, navigation }) {
     navigation.goBack();
   };
 
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Create Reservation</Text>
-//       <Text>Date: {selectedDate}</Text>
 
-//       <TextInput
-//         placeholder="Customer Name"
-//         style={styles.input}
-//         value={name}
-//         onChangeText={setName}
-//       />
-
-//       <TextInput
-//         placeholder="Guests Count"
-//         style={styles.input}
-//         keyboardType="numeric"
-//         value={guests}
-//         onChangeText={setGuests}
-//       />
-
-//       <TextInput
-//         placeholder="Time (19:30:00)"
-//         style={styles.input}
-//         value={time}
-//         onChangeText={setTime}
-//       />
-
-//       <Text style={{ marginTop: 10 }}>Select Table:</Text>
-
-//       <FlatList
-//         data={tables}
-//         keyExtractor={(item) => item.id.toString()}
-//         numColumns={2}
-//         renderItem={({ item }) => (
-//           <TouchableOpacity
-//             style={[
-//               styles.tableBox,
-//               selectedTable?.id === item.id && {
-//                 backgroundColor: "#ff6b3d",
-//               },
-//             ]}
-//             onPress={() => setSelectedTable(item)}
-//           >
-//             <Text style={{ color: selectedTable?.id === item.id ? "#fff" : "#000" }}>
-//               Table {item.table_number}
-//             </Text>
-//           </TouchableOpacity>
-//         )}
-//       />
-
-//       <TouchableOpacity style={styles.button} onPress={createReservation}>
-//         <Text style={{ color: "#fff" }}>Create Reservation</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }
 return (
   <View style={styles.container}>
     <View style={styles.card}>

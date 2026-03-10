@@ -96,7 +96,7 @@ const [user, setUser] = useState({
   return (
     
  <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
-        {/* <Header user={user} navigation={navigation} setUser={setUser} /> */}
+      
       <View style={styles.container}>
 
         {/* Welcome */}
@@ -173,93 +173,9 @@ const [user, setUser] = useState({
             <Text style={styles.newOrderText}>New Order</Text>
           </TouchableOpacity>
         )} 
-   {/* <View style={styles.bottomNav}>
-  <TouchableOpacity style={styles.navItem}>
-    <Ionicons name="home" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>HOME</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.navItem}>
-    <MaterialCommunityIcons name="clipboard-list" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>ORDERS</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.navItem}>
-    <MaterialCommunityIcons name="seat" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>RESERVATIONS</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity style={styles.navItem}>
-    <Ionicons name="settings" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>MORE</Text>
-  </TouchableOpacity>
-</View> */}
-{/* <View style={styles.bottomNav}>
-  <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("Home")}
-  >
-    <Ionicons name="home" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>HOME</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("Orders")}
-  >
-    <MaterialCommunityIcons name="clipboard-list" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>ORDERS</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("Reservations")}
-  >
-    <MaterialCommunityIcons name="seat-outline" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>RESERVATIONS</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("More")}
-  >
-    <Ionicons name="settings-outline" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>MORE</Text>
-  </TouchableOpacity>
-</View> */}
+ 
 <View style={styles.bottomNav}>
-  {/* <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("WaiterDashboard")}
-  >
-    <Ionicons name="home" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>HOME</Text>
-  </TouchableOpacity>
 
-  <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("TablesListScreen")}
-  >
-    <MaterialCommunityIcons name="clipboard-list" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>ORDERS</Text>
-  </TouchableOpacity>
-
-  <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("Reservations")}
-  >
-    <MaterialCommunityIcons name="seat-outline" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>RESERVATIONS</Text>
-  </TouchableOpacity> */}
-
-  {/* <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate("MenuManagement")}
-  >
-    <Ionicons name="settings-outline" size={18} color="#ff6b3d" />
-    <Text style={styles.navText}>MORE</Text>
-  </TouchableOpacity> */}
-        {/* <Footer navigation={navigation} role="waiter"/> */}
 </View>
      </View>
    

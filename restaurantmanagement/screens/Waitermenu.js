@@ -22,6 +22,10 @@ export default function Waitermenu({ route }) {
     1: "Starters",
     2: "Main Course",
     3: "Beverages",
+    4:"Breakfast",
+    5:"lunch",
+    6:"Dinner"
+    
   };
 
   useEffect(() => {
@@ -159,8 +163,7 @@ export default function Waitermenu({ route }) {
         )}
         showsVerticalScrollIndicator={false}
       />
-
-      {Object.keys(cart).length > 0 && (
+ {Object.keys(cart).length > 0 && (
         <TouchableOpacity
           style={styles.orderBtn}
           onPress={placeFullOrder}
@@ -170,6 +173,7 @@ export default function Waitermenu({ route }) {
           </Text>
         </TouchableOpacity>
       )}
+     
     </SafeAreaView>
   );
 }
@@ -214,6 +218,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 15,
     alignItems: "center",
+    marginBottom:"70",
   },
   orderText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 });

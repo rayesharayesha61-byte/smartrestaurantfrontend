@@ -53,8 +53,8 @@ export default function AddMenuItem({goBack,navigation}) {
     formData.append("category", category);
     formData.append("price", price);
     formData.append("description", description);
-    // formData.append("isVeg", isVeg);
-    // formData.append("available", available);
+   
+    
 formData.append("isVeg", isVeg ? 1 : 0);
 formData.append("available", available ? 1 : 0);
     if (image) {
@@ -80,7 +80,7 @@ formData.append("available", available ? 1 : 0);
       }
     } catch (err) {
       console.log(err);
-      // alert("Network Error");
+   
     }
   };
 
@@ -119,14 +119,6 @@ formData.append("available", available ? 1 : 0);
             placeholder="Ex: Veg Burger"
           />
 
-          {/* Category */}
-          {/* <Text style={styles.label}>Category</Text>
-          <TextInput
-            style={styles.input}
-            value={category}
-            onChangeText={setCategory}
-            placeholder="Ex: Main Course"
-          /> */}
 <Text style={styles.label}>Category</Text>
 <View style={styles.pickerBox}>
   <Picker
@@ -137,9 +129,13 @@ formData.append("available", available ? 1 : 0);
     <Picker.Item label="starters" value="1" />
     <Picker.Item label="Main Course" value="2" />
      <Picker.Item label="Beverages" value="3" />
+       <Picker.Item label="Breakfast" value="4" />
+    <Picker.Item label="lunch" value="5" />
+     <Picker.Item label="Dinner" value="6" />
+      
   </Picker>
 </View>
-          {/* Price */}
+{/* Price */}
           <Text style={styles.label}>Price</Text>
           <TextInput
             style={styles.input}

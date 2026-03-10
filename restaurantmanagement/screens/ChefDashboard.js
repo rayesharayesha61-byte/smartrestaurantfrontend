@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import Footer from "./Footer";
-// import Header from "./Header";
+
 export default function ChefDashboard( {navigation} ) {
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState("Pending");
@@ -23,39 +23,7 @@ export default function ChefDashboard( {navigation} ) {
     fetchOrders();
   }, []);
 
-  // const fetchOrders = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://192.168.29.155:5000/api/orders"
-  //     );
-
-     
-  //     const grouped = response.data.reduce((acc, item) => {
-  //       const key = item.table_number + "_" + item.status;
-
-  //       if (!acc[key]) {
-  //         acc[key] = {
-  //           table_number: item.table_number,
-  //           status: item.status,
-  //           created_at: item.created_at,
-  //           items: [],
-  //         };
-  //       }
-
-  //       // acc[key].items.push({
-  //       //   id: item.id,
-  //       //   menu_name: item.menu_name,
-  //       //   quantity: item.quantity,
-  //       // });
-
-  //       return acc;
-  //     }, {});
-
-  //     setOrders(Object.values(grouped));
-  //   } catch (error) {
-  //     Alert.alert("Error", "Failed to fetch orders");
-  //   }
-  // };
+  
 const fetchOrders = async () => {
   try {
     const response = await axios.get(
@@ -119,64 +87,7 @@ const fetchOrders = async () => {
  const filteredOrders = orders.filter(
     (item) => item.status === activeTab
   );
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.card}>
-  //     <View style={styles.cardHeader}>
-  //       <Text style={styles.orderTitle}>
-  //         Table {item.table_number}
-  //       </Text>
-
-  //       <View style={{ alignItems: "flex-end" }}>
-  //         <Text style={styles.statusText}>
-  //           {item.status}
-  //         </Text>
-  //         {item.created_at && (
-  //           <Text style={styles.timeText}>
-  //             {new Date(item.created_at).toLocaleTimeString()}
-  //           </Text>
-  //         )}
-  //       </View>
-  //     </View>
-
-  //     {/* MULTIPLE ITEMS */}
-  //     {item.items.map((food, index) => (
-  //       <View key={index} style={styles.itemRow}>
-  //         <Text style={styles.qty}>
-  //           {food.quantity}x
-  //         </Text>
-  //         <Text style={styles.itemName}>
-  //           {food.menu_name}
-  //         </Text>
-  //       </View>
-  //     ))}
-
-  //     {item.status === "Pending" && (
-  //       <TouchableOpacity
-  //         style={styles.acceptBtn}
-  //         onPress={() =>
-  //           updateStatus(item.table_number, "Cooking")
-  //         }
-  //       >
-  //         <Text style={styles.btnText}>
-  //           Accept → Cooking
-  //         </Text>
-  //       </TouchableOpacity>
-  //     )}
-
-  //     {item.status === "Cooking" && (
-  //       <TouchableOpacity
-  //         style={styles.readyBtn}
-  //         onPress={() =>
-  //           updateStatus(item.table_number, "Ready")
-  //         }
-  //       >
-  //         <Text style={styles.btnText}>
-  //           Mark as Ready
-  //         </Text>
-  //       </TouchableOpacity>
-  //     )}
-  //   </View>
-  // );
+ 
 const renderItem = ({ item }) => (
   <TouchableOpacity
     style={styles.card}
@@ -241,11 +152,7 @@ const renderItem = ({ item }) => (
 );
   return (
   <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
-      {/* <Text style={styles.header}>
-        Kitchen Dashboard
-      </Text> */}
-  {/* <Header user={user} navigation={navigation} setUser={setUser} /> */}
-      {/* TABS WITH COUNT */}
+
       <View style={styles.tabs}>
         {[
           { name: "Pending", count: pendingCount },
@@ -272,20 +179,14 @@ const renderItem = ({ item }) => (
         ))}
       </View>
 
-      {/* <FlatList
-        data={filteredOrders}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-      /> */}
+     
       <FlatList
   data={filteredOrders}
   keyExtractor={(item, index) => index.toString()}
   renderItem={renderItem}
   contentContainerStyle={{ paddingBottom: 100 }}
 />
-      // <View style={styles.bottomNav}>
-      //       <Footer navigation={navigation} role="chef"/></View>
+    
     </SafeAreaView>
   );
 }
@@ -412,5 +313,6 @@ const styles = StyleSheet.create({
   btnText: {
     color: "#fff",
     fontWeight: "bold",
+   
   },
 });

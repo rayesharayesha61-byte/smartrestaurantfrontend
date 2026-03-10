@@ -15,19 +15,7 @@ export default function CashierDashboard( { navigation } ) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  //  Fetch bills from backend
-  // useEffect(() => {
-  //   fetch("http://192.168.29.155:5000/get-bills") 
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setOrders(data);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Fetch error:", err);
-  //       setLoading(false);
-  //     });
-  // }, []);
+ 
 useEffect(() => {
   fetch("http://192.168.29.155:5000/get-bills")
     .then((res) => res.json())
@@ -64,7 +52,7 @@ const payBill = (id) => {
 
       alert("Payment Completed");
 
-      // remove from screen
+      
       setOrders(prev => prev.filter(o => o.id !== id));
 
     }
@@ -85,17 +73,9 @@ const payBill = (id) => {
           <Text style={{ marginTop: 20 }}>No Bills Available</Text>
         ) : (
           orders.map((order, index) => {
-            const items = JSON.parse(order.items || "[]");
-
-            const subtotal = items.reduce((sum, item) => {
-              return (
-                sum +
-                (Number(item.quantity) || 0) *
-                  (Number(item.price) || 0)
-              );
-            }, 0);
-
-            const total = subtotal + subtotal * 0.1;
+          
+const total = order.price*order.quantity;
+         
 
             return (
               <View key={order.id} style={styles.card}>
@@ -112,15 +92,16 @@ const payBill = (id) => {
                       <Text style={styles.tableTitle}>
                         Table {order.table_number}
                       </Text>
+                     
                       <Text style={styles.itemCount}>
-                        {items.length} Items
-                      </Text>
+  {order.quantity} x {order.menu_name}
+</Text>
                     </View>
                   </View>
 
                   <Text style={styles.amount}>
-                ₹{Number(order.total).toFixed(2)}
-                  </Text>
+₹{order.price * order.quantity}
+</Text>
                 </View>
 
                 {/* STATUS */}
@@ -132,7 +113,6 @@ const payBill = (id) => {
 
                 {/* BUTTONS */}
                 <View style={styles.buttonRow}>
-                  {/* <TouchableOpacity style={styles.billBtn}> */}
                   <TouchableOpacity
   style={styles.billBtn}
   onPress={() =>
@@ -165,8 +145,7 @@ const payBill = (id) => {
                 
         
       </ScrollView>
-      {/* <View style={styles.bottomNav}>
-                     <Footer navigation={navigation} role="cashier"/></View> */}
+   
     </SafeAreaView>
   );
 }

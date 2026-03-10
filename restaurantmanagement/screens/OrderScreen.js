@@ -26,7 +26,7 @@ const response = await axios.get(`${API_URL}/tables`);
 
 if(response.data.success){
 
-// Occupied tables மட்டும் filter
+
 const occupiedTables = response.data.data.filter(
 (t)=> t.status === "Occupied"
 );

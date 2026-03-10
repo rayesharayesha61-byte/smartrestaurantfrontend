@@ -17,15 +17,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-// import MenuManagement from "./MenuManagement";
-// import AddMenuItem from "./AddMenuItem";
-// import CreateTable from "./CreateTable";
-// import StaffManagementScreen from "./StaffManagementScreen";
+
 import Footer from "./Footer";
 import Header from "./Header";
 export default function ManagerDashboard({ token,navigation}) {
   const [user, setUser] = useState({
-    role: "manager", // or get from login
+    role: "manager",
   
   });
   const [menuVisible, setMenuVisible] = useState(false);
@@ -129,35 +126,7 @@ if (currentScreen === "staffmanagementscreen") {
     
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       
-   {/* <Header
-        user={user}
-        navigation={navigation}
-        setUser={setUser}
-      /> */}
-      {/* HEADER */}
-      {/* <View style={headerStyles.header}>
-        
-        <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
-          <MaterialCommunityIcons name="menu" size={28} color="#fff" />
-        </TouchableOpacity>
-        <Text style={headerStyles.headerTitle}>Manager Dashboard</Text>
-       </View>  */}
-  {/* <Header user={user} navigation={navigation} setUser={setUser} /> */}
-      {/* SIDE MENU */}
-      {/* {menuVisible && (
-        <View style={headerStyles.sideMenu}>
-          <TouchableOpacity onPress={() => setMenuVisible(false)}>
-          
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={headerStyles.menuItem}>Menu Management</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={headerStyles.menuItem}>Add Menu Item</Text>
-          </TouchableOpacity>
-         
-        </View>
-      )} */}
+  
 {menuVisible && (
   <View style={headerStyles.sideMenu}>
     
@@ -286,8 +255,7 @@ if (currentScreen === "staffmanagementscreen") {
           </View>
 
         </ScrollView>
-        {/* <View style={styles.bottomNav}>
-             <Footer navigation={navigation} role="manager"/></View> */}
+      
       </KeyboardAvoidingView>
 
     </SafeAreaView>

@@ -29,8 +29,7 @@ export default function LoginScreen({ setUser,navigation }) {
         password
       });
 
-      // if (response.data.success) {
-      //   setUserRole(response.data.role);
+  
       if (response.data.success) {
   setUser({
     role: response.data.role,
@@ -99,9 +98,7 @@ export default function LoginScreen({ setUser,navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* <TouchableOpacity>
-          <Text style={styles.forgot}>Forgot password?</Text>
-        </TouchableOpacity> */}
+     
 <TouchableOpacity onPress={() => navigation.navigate("ForgotPasswordScreen")}>
   <Text style={styles.forgot}>Forgot password?</Text>
 </TouchableOpacity>

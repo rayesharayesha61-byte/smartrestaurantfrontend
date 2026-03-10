@@ -126,35 +126,7 @@ if (currentScreen === "staffmanagementscreen") {
     
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       
-   {/* <Header
-        user={user}
-        navigation={navigation}
-        setUser={setUser}
-      /> */}
-      {/* HEADER */}
-      {/* <View style={headerStyles.header}>
-        
-        <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
-          <MaterialCommunityIcons name="menu" size={28} color="#fff" />
-        </TouchableOpacity>
-        <Text style={headerStyles.headerTitle}>Admin Dashboard</Text>
-       </View>  */}
-
-      {/* SIDE MENU */}
-      {/* {menuVisible && (
-        <View style={headerStyles.sideMenu}>
-          <TouchableOpacity onPress={() => setMenuVisible(false)}>
-          
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={headerStyles.menuItem}>Menu Management</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={headerStyles.menuItem}>Add Menu Item</Text>
-          </TouchableOpacity>
-         
-        </View>
-      )} */}
+   
 {menuVisible && (
   <View style={headerStyles.sideMenu}>
     
@@ -282,8 +254,7 @@ if (currentScreen === "staffmanagementscreen") {
           </View>
 
         </ScrollView>
-          {/* <View style={styles.bottomNav}>
-             <Footer navigation={navigation} role="admin"/></View> */}
+    
       </KeyboardAvoidingView>
 
     </SafeAreaView>
