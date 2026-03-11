@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -44,12 +45,16 @@ export default function HistoryScreen() {
       <ScrollView showsVerticalScrollIndicator={false}>
 
         {bills.length === 0 ? (
-          <Text style={{ marginTop: 20 }}>No History Available</Text>
+          <Text style={{ marginTop: 20 }}>
+            No History Available
+          </Text>
         ) : (
-          bills.map((bill, index) => (
-            <View key={index} style={styles.card}>
+          bills.map((bill) => (
+
+            <View key={bill.id} style={styles.card}>
 
               <View style={styles.row}>
+
                 <Text style={styles.table}>
                   Table {bill.table_number}
                 </Text>
@@ -57,17 +62,15 @@ export default function HistoryScreen() {
                 <Text style={styles.amount}>
                   ₹{Number(bill.total).toFixed(2)}
                 </Text>
+
               </View>
 
-              <Text style={styles.status}>
-                {bill.status}
-              </Text>
-
               <Text style={styles.date}>
-                {bill.created_at}
+                {new Date(bill.created_at).toLocaleString()}
               </Text>
 
             </View>
+
           ))
         )}
 
@@ -121,14 +124,8 @@ const styles = StyleSheet.create({
     color:"#ff6b35"
   },
 
-  status:{
-    marginTop:5,
-    color:"#4CAF50",
-    fontWeight:"bold"
-  },
-
   date:{
-    marginTop:5,
+    marginTop:8,
     color:"#777",
     fontSize:12
   }

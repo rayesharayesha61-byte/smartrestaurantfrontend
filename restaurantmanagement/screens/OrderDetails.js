@@ -33,17 +33,31 @@ export default function OrderDetails({ route, navigation }) {
     }
     navigation.navigate("CashierDashboard");
   };
+
 const handleGenerateBill = async () => {
   try {
+
+    
+    for (let item of order.items) {
+      await fetch(`http://192.168.29.155:5000/api/orders/${item.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "Completed" }),
+      });
+    }
+
+    // bill create
     await fetch("http://192.168.29.155:5000/create-bill", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({id:order.id}),
+      body: JSON.stringify({ table_number: order.table_number }),
     });
 
-    navigation.navigate("Chef"); 
+    navigation.navigate("Chef");
 
   } catch (error) {
     console.log("Bill error:", error);
@@ -170,6 +184,7 @@ const handleGenerateBill = async () => {
             </Text>
           </View>
         </View>
+      
           <TouchableOpacity
   style={styles.billBtn}
   onPress={handleGenerateBill}

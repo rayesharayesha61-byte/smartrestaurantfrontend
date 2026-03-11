@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
 import Header from "./screens/Header";
 import Footer from "./screens/Footer";
 
@@ -35,6 +36,21 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [user, setUser] = useState(null);
 
+const [loading, setLoading] = useState(true);
+useEffect(() => {
+  const loadUser = async () => {
+    const savedUser = await AsyncStorage.getItem("user");
+
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+
+    setLoading(false);
+  };
+
+  loadUser();
+}, []);
+if (loading) return null;
   const Layout = ({ children, navigation }) => {
     return (
       <>

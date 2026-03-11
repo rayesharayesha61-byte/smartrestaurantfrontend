@@ -15,7 +15,7 @@ const fetchHistory = async ()=>{
 const res = await axios.get("http://192.168.29.155:5000/api/orders");
 
 const readyOrders = res.data.filter(
-(o)=>o.status === "Ready"
+(o)=>o.status === "Paid"
 );
 
 setOrders(readyOrders);

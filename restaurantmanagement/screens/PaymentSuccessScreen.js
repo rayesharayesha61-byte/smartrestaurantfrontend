@@ -1,4 +1,4 @@
-
+import axios from "axios";
 import React from "react";
 import {
   View,
@@ -23,7 +23,27 @@ export default function PaymentSuccessScreen({ route }) {
   } = route.params;
 
   const items = JSON.parse(order.items || "[]");
+const handleDone = async () => {
+  try {
 
+    const items = JSON.parse(order.items || "[]");
+
+    for (let item of items) {
+      await axios.put(
+        `http://192.168.29.155:5000/api/orders/${item.id}`,
+        { status: "Completed" }
+      );
+    }
+
+    Alert.alert("Bill Completed");
+
+    navigation.navigate("CashierDashboard");
+
+  } catch (error) {
+    console.log(error);
+
+  }
+};
   const generatePDF = async () => {
     const html = `
       <html>
@@ -134,7 +154,10 @@ return (
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.doneBtn}>
+   <TouchableOpacity
+  style={styles.doneBtn}
+  onPress={handleDone}
+>
         <Text style={styles.doneText}>Done</Text>
       </TouchableOpacity>
 

@@ -6,7 +6,6 @@ Text,
 StyleSheet,
 TouchableOpacity,
 ScrollView,
-Image,
 TextInput
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -17,6 +16,15 @@ const [totalSales, setTotalSales] = useState(0);
 const [availableTables, setAvailableTables] = useState(0);
 const [ordersQueue, setOrdersQueue] = useState(0);
 const [search, setSearch] = useState("");
+const [greeting, setGreeting] = useState("");
+
+const getGreeting = () => {
+const hour = new Date().getHours();
+
+if (hour < 12) return "Good Morning";
+else if (hour < 17) return "Good Afternoon";
+else return "Good Evening";
+};
 
 const menuItems = [
 {
@@ -37,13 +45,17 @@ sub:"View & edit table layout",
 icon:"table-restaurant",
 screen:"CreateTable"
 },
-{
-title:"Business Reports",
-sub:"Performance and trends",
-icon:"bar-chart",
-screen:"Reports"
-}
+// {
+// title:"Business Reports",
+// sub:"Performance and trends",
+// icon:"bar-chart",
+// screen:"Reports"
+// }
 ];
+
+useEffect(() => {
+setGreeting(getGreeting());
+}, []);
 
 useEffect(() => {
 fetch("http://192.168.29.155:5000/admin-total-sales")
@@ -81,21 +93,19 @@ item.title.toLowerCase().includes(search.toLowerCase())
 );
 
 return (
-<ScrollView style={styles.container}>
 
-{/* Header */}
+<ScrollView
+style={styles.container}
+showsVerticalScrollIndicator={false}
+contentContainerStyle={{paddingBottom:140}}
+>
 
 <View style={styles.header}>
 
 <View style={{flexDirection:"row",alignItems:"center"}}>
 
-<Image
-source={{uri:"https://i.pravatar.cc/100"}}
-style={styles.avatar}
-/>
-
 <View>
-<Text style={styles.greeting}>Good morning,</Text>
+<Text style={styles.greeting}>{greeting},</Text>
 <Text style={styles.name}>Admin</Text>
 </View>
 
@@ -104,8 +114,6 @@ style={styles.avatar}
 <Ionicons name="notifications-outline" size={22} />
 
 </View>
-
-{/* Search */}
 
 <View style={styles.searchBox}>
 
@@ -120,19 +128,15 @@ style={styles.searchInput}
 
 </View>
 
-{/* Sales */}
-
 <View style={styles.salesCard}>
 
-<Text style={styles.salesTitle}>Today's Sales</Text>
+<Text style={styles.salesTitle}>Total Sales</Text>
 
 <Text style={styles.salesAmount}>
 ₹ {totalSales}
 </Text>
 
 </View>
-
-{/* Live Status */}
 
 <Text style={styles.sectionTitle}>LIVE STATUS</Text>
 
@@ -159,8 +163,6 @@ style={styles.searchInput}
 </View>
 
 </View>
-
-{/* Management */}
 
 <Text style={styles.sectionTitle}>MANAGEMENT HUB</Text>
 
@@ -189,6 +191,7 @@ onPress={()=>navigation.navigate(item.screen)}
 ))}
 
 </ScrollView>
+
 );
 }
 
@@ -205,13 +208,6 @@ flexDirection:"row",
 justifyContent:"space-between",
 alignItems:"center",
 marginBottom:20
-},
-
-avatar:{
-width:40,
-height:40,
-borderRadius:20,
-marginRight:10
 },
 
 greeting:{

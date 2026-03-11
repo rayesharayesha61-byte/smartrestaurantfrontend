@@ -1,4 +1,4 @@
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from 'react';
 import {
   View,
@@ -22,30 +22,33 @@ export default function LoginScreen({ setUser,navigation }) {
   const [password, setPassword] = useState('');
   const [secure, setSecure] = useState(true);
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('http://192.168.29.155:5000/login', {
-        email,
-        password
-      });
 
-  
-      if (response.data.success) {
-  setUser({
-    role: response.data.role,
-    name: response.data.name
-  });
+const handleLogin = async () => {
+  try {
+    const response = await axios.post('http://192.168.29.155:5000/login', {
+      email,
+      password
+    });
 
+    if (response.data.success) {
 
-      } else {
-        Alert.alert("Error", "Invalid Credentials");
-      }
+      const userData = {
+        role: response.data.role,
+        name: response.data.name
+      };
 
-    } catch (error) {
-      Alert.alert("Error", "Server not reachable");
+      setUser(userData);
+
+      await AsyncStorage.setItem("user", JSON.stringify(userData));
+
+    } else {
+      Alert.alert("Error", "Invalid Credentials");
     }
-  };
 
+  } catch (error) {
+    Alert.alert("Error", "Server not reachable");
+  }
+};
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: '#fff' }}

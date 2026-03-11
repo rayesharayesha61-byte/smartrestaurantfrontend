@@ -10,22 +10,19 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialIcons";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Header({ user, navigation, setUser }) {
   const [menuVisible, setMenuVisible] = useState(false);
 
   const isAdminOrManager =
     user?.role === "admin" || user?.role === "manager";
 
-  const handleLogout = () => {
-    setMenuVisible(false);
-    setUser(null);
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "LoginScreen" }],
-    });
-  };
-
+ 
+const handleLogout = async () => {
+  setMenuVisible(false);
+  await AsyncStorage.removeItem("user");
+  setUser(null);
+};
   const goTo = (screen) => {
     setMenuVisible(false);
     navigation.navigate(screen);

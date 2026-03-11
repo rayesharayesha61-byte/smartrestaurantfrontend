@@ -43,47 +43,58 @@ export default function AddMenuItem({goBack,navigation}) {
     }
   };
 
-  const saveMenuItem = async () => {
-    if (!itemName || !category || !price) {
-      alert("Please fill all required fields");
-      return;
-    }
-    const formData = new FormData();
-    formData.append("name", itemName);
-    formData.append("category", category);
-    formData.append("price", price);
-    formData.append("description", description);
-   
-    
-formData.append("isVeg", isVeg ? 1 : 0);
-formData.append("available", available ? 1 : 0);
-    if (image) {
-      formData.append("image", {
-        uri: image.uri,
-        type: image.type,
-        name: image.name,
-      });
-    }
 
-    try {
-      const response = await axios.post(
-        "http://192.168.29.155:5000/api/menu/add",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+const clearFields = () => {
+  setItemName("");
+  setCategory("");
+  setPrice("");
+  setDescription("");
+  setIsVeg(true);
+  setAvailable(true);
+  setImage(null);
+};
 
-      if (response.data.success) {
-        alert("Menu Item added!");
-        goBack();
-      } else {
-        alert("Error adding item");
-      }
-    } catch (err) {
-      console.log(err);
-   
+const saveMenuItem = async () => {
+  if (!itemName || !category || !price) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("name", itemName);
+  formData.append("category", category);
+  formData.append("price", price);
+  formData.append("description", description);
+  formData.append("isVeg", isVeg ? 1 : 0);
+  formData.append("available", available ? 1 : 0);
+
+  if (image) {
+    formData.append("image", {
+      uri: image.uri,
+      type: image.type,
+      name: image.name,
+    });
+  }
+
+  try {
+    const response = await axios.post(
+      "http://192.168.29.155:5000/api/menu/add",
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    );
+
+    if (response.data.success) {
+      alert("Menu Item added!");
+
+      clearFields(); // clear inputs
+      navigation.navigate("MenuManagement"); // go to menu screen
+    } else {
+      alert("Error adding item");
     }
-  };
-
+  } catch (err) {
+    console.log(err);
+  }
+};
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView

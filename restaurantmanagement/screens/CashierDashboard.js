@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -10,29 +10,37 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import Footer from "./Footer";
-export default function CashierDashboard( { navigation } ) {
+import { useFocusEffect } from "@react-navigation/native";
+
+export default function CashierDashboard({ navigation }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
- 
-useEffect(() => {
-  fetch("http://192.168.29.155:5000/get-bills")
-    .then((res) => res.json())
-    .then((data) => {
+  const fetchOrders = () => {
+    fetch("http://192.168.29.155:5000/get-bills")
+      .then((res) => res.json())
+      .then((data) => {
 
-      const readyOrders = data.filter(
-        (order) => order.status === "Ready"
-      );
+        const readyOrders = data.filter(
+          (order) => order.status === "Completed"
+        );
 
-      setOrders(readyOrders);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.log("Fetch error:", err);
-      setLoading(false);
-    });
-}, []);
+        setOrders(readyOrders);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log("Fetch error:", err);
+        setLoading(false);
+      });
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(true);
+      fetchOrders();
+    }, [])
+  );
+
   if (loading) {
     return (
       <SafeAreaView style={styles.loaderContainer}>
@@ -40,48 +48,34 @@ useEffect(() => {
       </SafeAreaView>
     );
   }
-const payBill = (id) => {
 
-  fetch(`http://192.168.29.155:5000/pay-bill/${id}`, {
-    method: "PUT"
-  })
-  .then(res => res.json())
-  .then(data => {
-
-    if(data.success){
-
-      alert("Payment Completed");
-
-      
-      setOrders(prev => prev.filter(o => o.id !== id));
-
-    }
-
-  })
-  .catch(err => console.log(err));
-
-};
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+
         <Text style={styles.header}>Ready Orders</Text>
+
         <Text style={styles.pendingText}>
           {orders.length} TABLE PENDING
         </Text>
 
         {orders.length === 0 ? (
-          <Text style={{ marginTop: 20 }}>No Bills Available</Text>
+          <Text style={{ marginTop: 20 }}>
+            No Bills Available
+          </Text>
         ) : (
-          orders.map((order, index) => {
-          
-const total = order.price*order.quantity;
-         
+          orders.map((order) => {
+
+            const total = order.price * order.quantity;
 
             return (
               <View key={order.id} style={styles.card}>
+
                 {/* TOP ROW */}
                 <View style={styles.topRow}>
+
                   <View style={styles.leftRow}>
+
                     <View style={styles.tableBadge}>
                       <Text style={styles.tableNumber}>
                         {order.table_number}
@@ -92,16 +86,18 @@ const total = order.price*order.quantity;
                       <Text style={styles.tableTitle}>
                         Table {order.table_number}
                       </Text>
-                     
+
                       <Text style={styles.itemCount}>
-  {order.quantity} x {order.menu_name}
-</Text>
+                        {order.quantity} x {order.menu_name}
+                      </Text>
                     </View>
+
                   </View>
 
                   <Text style={styles.amount}>
-₹{order.price * order.quantity}
-</Text>
+                    ₹{total}
+                  </Text>
+
                 </View>
 
                 {/* STATUS */}
@@ -111,23 +107,25 @@ const total = order.price*order.quantity;
                   </Text>
                 </View>
 
-                {/* BUTTONS */}
+                {/* BUTTON */}
                 <View style={styles.buttonRow}>
+
                   <TouchableOpacity
-  style={styles.billBtn}
-  onPress={() =>
-    navigation.navigate("BillDetails", { order })
-  }
->
+                    style={styles.billBtn}
+                    onPress={() =>
+                      navigation.navigate("BillDetails", { order })
+                    }
+                  >
                     <Ionicons
                       name="receipt-outline"
                       size={18}
                       color="#fff"
                     />
+
                     <Text style={styles.billText}>
-                      {" "}
-                      Bill Now
+                      {" "}Bill Now
                     </Text>
+
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.menuBtn}>
@@ -137,20 +135,21 @@ const total = order.price*order.quantity;
                       color="#555"
                     />
                   </TouchableOpacity>
+
                 </View>
+
               </View>
             );
           })
         )}
-                
-        
+
       </ScrollView>
-   
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: "#f6f6f6",
@@ -174,20 +173,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: "600",
   },
-bottomNav: {
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  right: 0,
-  height: 70,
-  backgroundColor: "#fff",
-  flexDirection: "row",
-  justifyContent: "space-around",
-  alignItems: "center",
-  elevation: 10,
-  borderTopWidth: 1,
-  borderColor: "#eee",
-},
+
   card: {
     backgroundColor: "#fff",
     padding: 20,
@@ -274,4 +260,5 @@ bottomNav: {
     justifyContent: "center",
     alignItems: "center",
   },
+
 });

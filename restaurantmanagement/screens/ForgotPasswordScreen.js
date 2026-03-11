@@ -52,7 +52,11 @@ style={styles.input}
 <TouchableOpacity style={styles.btn} onPress={sendOtp}>
 <Text style={styles.btntxt}>Send OTP</Text>
 </TouchableOpacity>
-
+<TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+  <Text style={styles.loginLink}>
+    Remember password? Login
+  </Text>
+</TouchableOpacity>
 </View>
 
 );
@@ -96,7 +100,12 @@ padding:15,
 borderRadius:25,
 alignItems:"center"
 },
-
+loginLink:{
+  textAlign:"center",
+  marginTop:20,
+  color:"#FF6B35",
+  fontWeight:"bold"
+},
 btntxt:{
 color:"#fff",
 fontWeight:"bold"

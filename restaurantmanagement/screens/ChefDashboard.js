@@ -84,10 +84,10 @@ const fetchOrders = async () => {
   const pendingCount = orders.filter(o => o.status === "Pending").length;
   const cookingCount = orders.filter(o => o.status === "Cooking").length;
   const readyCount = orders.filter(o => o.status === "Ready").length;
- const filteredOrders = orders.filter(
-    (item) => item.status === activeTab
-  );
- 
+
+const filteredOrders = orders.filter(
+  (item) => item.status === activeTab && item.status !== "Completed"
+);
 const renderItem = ({ item }) => (
   <TouchableOpacity
     style={styles.card}
@@ -148,6 +148,7 @@ const renderItem = ({ item }) => (
         </Text>
       </TouchableOpacity>
     )}
+  
   </TouchableOpacity>
 );
   return (
