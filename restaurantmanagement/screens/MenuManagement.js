@@ -138,7 +138,7 @@ const mealTypes = ["Breakfast", "Lunch", "Dinner"];
         <Icon name="search" size={20} color="#a0522d" />
         <TextInput
           placeholder="Search menu items..."
-          style={{ marginLeft: 10, flex: 1 }}
+          style={{ marginLeft: 10, flex: 1}}
           value={searchText}
           onChangeText={setSearchText}
         />

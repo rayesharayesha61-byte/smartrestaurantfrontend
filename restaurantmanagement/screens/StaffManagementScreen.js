@@ -78,7 +78,7 @@ export default function StaffManagementScreen( {navigation}) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" />
+    
 
       {/* Header */}
       <View style={styles.header}>

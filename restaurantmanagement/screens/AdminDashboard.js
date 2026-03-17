@@ -34,7 +34,8 @@ const [currentScreen, setCurrentScreen] = useState("dashboard");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("waiter");
   const [isActive, setIsActive] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
+const [showPassword, setShowPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [profileImage, setProfileImage] = useState(null);
 
@@ -124,7 +125,7 @@ if (currentScreen === "staffmanagementscreen") {
   return (
    
     
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <SafeAreaView style={{ flex: 1 }}>
       
    
 {menuVisible && (
@@ -176,6 +177,7 @@ if (currentScreen === "staffmanagementscreen") {
         <ScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
+          
         >
 
           {successMessage !== "" && (
@@ -226,22 +228,58 @@ if (currentScreen === "staffmanagementscreen") {
               ))}
             </View>
 
-            <Text style={styles.label}>Password</Text>
+            {/* <Text style={styles.label}>Password</Text>
             <View style={styles.passwordBox}>
               <TextInput style={{ flex: 1 }} secureTextEntry={!showPassword} value={password} onChangeText={setPassword} />
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 <MaterialCommunityIcons name={showPassword ? "eye-off-outline" : "eye-outline"} size={22} color="#777" />
               </TouchableOpacity>
-            </View>
+            </View> */}
+<Text style={styles.label}>Password</Text>
+<View style={styles.passwordBox}>
+  <TextInput
+    style={{ flex: 1, color: "#000" }}
+    placeholder="Enter password"
+    placeholderTextColor="#999"
+    secureTextEntry={!showPassword}
+    value={password}
+    onChangeText={setPassword}
+  />
 
-            <Text style={styles.label}>Confirm Password</Text>
+  <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+    <MaterialCommunityIcons
+      name={showPassword ? "eye-off-outline" : "eye-outline"}
+      size={22}
+      color="#555"
+    />
+  </TouchableOpacity>
+</View>
+            {/* <Text style={styles.label}>Confirm Password</Text>
             <View style={styles.passwordBox}>
               <TextInput style={{ flex: 1 }} secureTextEntry={!showPassword} value={confirmPassword} onChangeText={setConfirmPassword} />
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 <MaterialCommunityIcons name={showPassword ? "eye-off-outline" : "eye-outline"} size={22} color="#777" />
               </TouchableOpacity>
-            </View>
+            </View> */}
+<Text style={styles.label}>Confirm Password</Text>
+<View style={styles.passwordBox}>
+  <TextInput
+    style={{ flex: 1, color: "#000" }}
+    placeholder="Confirm password"
+    placeholderTextColor="#999"
+    secureTextEntry={!showConfirmPassword}
+    value={confirmPassword}
+    onChangeText={setConfirmPassword}
+  />
 
+  <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+    <MaterialCommunityIcons
+      name={showConfirmPassword ? "eye-off-outline" : "eye-outline"}
+      size={22}
+      color="#555"
+    />
+  </TouchableOpacity>
+</View>
             <View style={styles.switchRow}>
               <Text style={{ fontSize: 16 }}>Active Status</Text>
               <Switch value={isActive} onValueChange={setIsActive} />
@@ -264,7 +302,7 @@ if (currentScreen === "staffmanagementscreen") {
 
 
 const styles = StyleSheet.create({
-  container: { padding: 20, paddingBottom: 50 },
+  container: { padding: 20, paddingBottom: 80 },
   card: { backgroundColor: "#fff", borderRadius: 20, padding: 20, elevation: 5 },
   title: { fontSize: 22, fontWeight: "bold", textAlign: "center", marginBottom: 20 },
   imageContainer: { alignItems: "center", marginBottom: 20 },

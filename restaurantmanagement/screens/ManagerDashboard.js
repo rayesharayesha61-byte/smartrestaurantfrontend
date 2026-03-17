@@ -265,7 +265,7 @@ if (currentScreen === "staffmanagementscreen") {
 
 
 const styles = StyleSheet.create({
-  container: { padding: 20, paddingBottom: 50 },
+  container: { padding: 20, paddingBottom: 70 },
   card: { backgroundColor: "#fff", borderRadius: 20, padding: 20, elevation: 5 },
   title: { fontSize: 22, fontWeight: "bold", textAlign: "center", marginBottom: 20 },
   imageContainer: { alignItems: "center", marginBottom: 20 },

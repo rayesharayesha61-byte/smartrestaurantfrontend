@@ -95,7 +95,7 @@ const [user, setUser] = useState({
 
   return (
     
- <SafeAreaView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+ <SafeAreaView style={{ flex: 1}}>
       
       <View style={styles.container}>
 
@@ -174,9 +174,9 @@ const [user, setUser] = useState({
           </TouchableOpacity>
         )} 
  
-<View style={styles.bottomNav}>
+{/* <View style={styles.bottomNav}>
 
-</View>
+</View> */}
      </View>
    
     </SafeAreaView>

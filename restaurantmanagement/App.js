@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
+import { StatusBar } from "react-native";
 import Header from "./screens/Header";
 import Footer from "./screens/Footer";
 
@@ -31,6 +32,7 @@ import OrderHistory from "./screens/OrderHistroy";
 import InventoryScreen from "./screens/InventoryScreen";
 import ForgotPassword from "./screens/ForgotPasswordScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import ReportScreen from "./screens/ReportScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -50,6 +52,10 @@ useEffect(() => {
 
   loadUser();
 }, []);
+ useEffect(() => {
+    StatusBar.setBackgroundColor("#ff6b35");
+    StatusBar.setBarStyle("light-content");
+  }, []);
 if (loading) return null;
   const Layout = ({ children, navigation }) => {
     return (
@@ -62,7 +68,15 @@ if (loading) return null;
   };
 
   return (
-    <SafeAreaProvider>
+ 
+
+ 
+      <SafeAreaProvider>
+      <StatusBar
+        backgroundColor="#ff6b35"
+        barStyle="light-content"
+        translucent={false}
+      />
       <NavigationContainer>
 <Stack.Navigator screenOptions={{ headerShown: false }}>
 
@@ -229,7 +243,13 @@ if (loading) return null;
         </Layout>
       )}
     </Stack.Screen>
-
+<Stack.Screen name="ReportScreen">
+      {(props) => (
+        <Layout navigation={props.navigation}>
+          <ReportScreen {...props} />
+        </Layout>
+      )}
+    </Stack.Screen>
   </>
 )}
 

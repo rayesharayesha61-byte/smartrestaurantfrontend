@@ -1,4 +1,4 @@
-
+import { StatusBar } from "react-native";
 import React, { useState } from "react";
 import {
   View,
@@ -29,17 +29,28 @@ const handleLogout = async () => {
   };
 
   return (
-    <>
-      <SafeAreaView edges={["top"]}>
+ <>
+  <StatusBar
+    backgroundColor="#ff6b35"
+    barStyle="light-content"
+  />
+
+  <SafeAreaView edges={["top"]}
+  style={{backgroundColor:"#ff6b35"}}
+  >
         <View style={styles.headerContainer}>
           <TouchableOpacity onPress={() => setMenuVisible(true)}>
             <Icon name="menu" size={28} color="#fff" />
           </TouchableOpacity>
 
-          <Text style={styles.headerTitle}>
+          {/* <Text style={styles.headerTitle}>
             {user?.role?.toUpperCase()} DASHBOARD
-          </Text>
-
+          </Text> */}
+          <Text style={styles.headerTitle}>
+  {user?.role === "admin"
+    ? "Smart Restaurant"
+    : `${user?.role?.toUpperCase()} DASHBOARD`}
+</Text>
           <TouchableOpacity onPress={handleLogout}>
             <Icon name="logout" size={26} color="#fff" />
           </TouchableOpacity>
@@ -159,7 +170,7 @@ closeRow: {
 
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.4)",
+    // backgroundColor: "rgba(0,0,0,0.4)",
     flexDirection: "row",
   },
 
